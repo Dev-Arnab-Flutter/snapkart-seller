@@ -60,6 +60,13 @@ class ProductDetailScreen extends StatelessWidget {
                     );
                   },
                   onRatingUpdate: (value) {}),
+                   SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                "Category : sub category",
+                style: TextStyle(color: red, fontSize: 16.sp),
+              ),
               SizedBox(
                 height: 10.h,
               ),

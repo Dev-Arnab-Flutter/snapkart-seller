@@ -23,11 +23,11 @@ class ShopSettingsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextField(hintText: shopNameHint, label: shopName),
+            const CustomTextFormField(hintText: shopNameHint, label: shopName),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextField(
+            const CustomTextFormField(
               hintText: shopDescHint,
               label: desc,
               isDesc: true,
@@ -35,15 +35,15 @@ class ShopSettingsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextField(hintText: address, label: addressHint),
+            const CustomTextFormField(hintText: address, label: addressHint),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextField(hintText: mobileHint, label: mobile),
+            const CustomTextFormField(hintText: mobileHint, label: mobile),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextField(hintText: shopWebsiteHint, label: webSite),
+            const CustomTextFormField(hintText: shopWebsiteHint, label: webSite),
             SizedBox(
               height: 10.h,
             ),

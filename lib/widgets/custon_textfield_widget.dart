@@ -2,12 +2,12 @@
 
 import '../const/const.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final String label;
   final bool isDesc;
   final TextEditingController? controller;
-  const CustomTextField(
+  const CustomTextFormField(
       {super.key,
       this.isDesc=false,
       required this.hintText,

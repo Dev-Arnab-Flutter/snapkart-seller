@@ -54,15 +54,15 @@ class EditProfileScreen extends StatelessWidget {
              SizedBox(
               height: 10.h,
             ),
-           const CustomTextField(label: name,hintText: nameHint,),
+           const CustomTextFormField(label: name,hintText: nameHint,),
  SizedBox(
               height: 10.h,
             ),
-            const CustomTextField(label: password,hintText: passHint,),
+            const CustomTextFormField(label: password,hintText: passHint,),
            SizedBox(
               height: 10.h,
             ),
-           const CustomTextField(
+           const CustomTextFormField(
             
             label: confirmPassword,hintText: passHint,),
  SizedBox(

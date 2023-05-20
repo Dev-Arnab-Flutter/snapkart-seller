@@ -1,6 +1,7 @@
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
+import 'package:seller/screens/add_product_screen.dart';
 import 'package:seller/screens/product_details_screen.dart';
 import 'package:seller/widgets/appbar_widget.dart';
 
@@ -31,12 +32,24 @@ class ProductsScreen extends StatelessWidget {
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(
+              subtitle: Row(
+                children: [
+                  Text(
                 "\$40".toUpperCase(),
                 style: TextStyle(
                   color: purpleColor,
                   fontSize: 14.sp,
                 ),
+              ),
+              SizedBox(width: 10.w,),
+               Text(
+                "Featured".toUpperCase(),
+                style: TextStyle(
+                  color: green ,
+                  fontSize: 14.sp,
+                ),
+              ),
+                ],
               ),
               trailing: FocusedMenuHolder(
                 openWithTap: true,
@@ -71,7 +84,9 @@ class ProductsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: purpleColor,
         shape: const CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          Get.to(()=>const AddProductScreen());
+        },
         child: Icon(
           Icons.add,
           color: white,
