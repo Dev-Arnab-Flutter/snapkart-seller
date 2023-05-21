@@ -1,10 +1,17 @@
+import 'package:get/get.dart';
+import 'package:seller/controllers/general_settings_controller.dart';
+import 'package:seller/controllers/user_image_controller.dart';
+import 'package:seller/services/api/services_api.dart';
 import 'package:seller/widgets/custon_textfield_widget.dart';
-
 import '../const/const.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
-
+  EditProfileScreen({super.key});
+  final ServiceApi api = ServiceApi();
+  final UserImageController userImageController =
+      Get.put(UserImageController());
+  final GeneralSettingsController generalSettingsController =
+      Get.put(GeneralSettingsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +24,9 @@ class EditProfileScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              api.editProfile();
+            },
             icon: Icon(
               Icons.save,
               size: 25.h,
@@ -30,16 +39,27 @@ class EditProfileScreen extends StatelessWidget {
         padding: EdgeInsets.all(8.0.h),
         child: Column(
           children: [
-            CircleAvatar(
-              backgroundImage: const AssetImage(imgProduct),
-              radius: 60.r,
-            ),
+            GetBuilder<UserImageController>(builder: (context) {
+              return CircleAvatar(
+                backgroundImage: userImageController.selectedProfilePicture
+                    ? MemoryImage(
+                        userImageController.imageFile!.readAsBytesSync())
+                    : generalSettingsController.vendorModel.imageUrl.isNotEmpty
+                        ? NetworkImage(
+                            generalSettingsController.vendorModel.imageUrl)
+                        : const AssetImage("assets/user.png") as ImageProvider<
+                            Object>, 
+                radius: 60.r,
+              );
+            }),
             SizedBox(
               height: 10.h,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: white),
-              onPressed: () {},
+              onPressed: () {
+                userImageController.selectImage();
+              },
               child: Text(
                 changeImage,
                 style: TextStyle(color: fontGrey, fontSize: 14.sp),
@@ -51,21 +71,31 @@ class EditProfileScreen extends StatelessWidget {
             const Divider(
               color: white,
             ),
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-           const CustomTextFormField(label: name,hintText: nameHint,),
- SizedBox(
+            CustomTextFormField(
+              label: name,
+              hintText: nameHint,
+              controller: api.userNameTEC,
+            ),
+            SizedBox(
               height: 10.h,
             ),
-            const CustomTextFormField(label: password,hintText: passHint,),
-           SizedBox(
+            CustomTextFormField(
+              label: password,
+              hintText: passHint,
+              controller: api.passTEC,
+            ),
+            SizedBox(
               height: 10.h,
             ),
-           const CustomTextFormField(
-            
-            label: confirmPassword,hintText: passHint,),
- SizedBox(
+            CustomTextFormField(
+              label: confirmPassword,
+              hintText: passHint,
+              controller: api.confirmpassTEC,
+            ),
+            SizedBox(
               height: 10.h,
             ),
           ],

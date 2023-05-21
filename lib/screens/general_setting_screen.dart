@@ -1,15 +1,28 @@
 
 import 'package:get/get.dart';
 import 'package:seller/const/const.dart';
+
+import 'package:seller/controllers/auth_controller.dart';
+import 'package:seller/controllers/general_settings_controller.dart';
+
 import 'package:seller/screens/edit_profile_screen.dart';
+
+
+
+import 'package:seller/screens/login_screen.dart';
 import 'package:seller/screens/messages_screen.dart';
 import 'package:seller/screens/shop_setting_screen.dart';
 
+
+
+
 class GeneralSettingsScreen extends StatelessWidget {
-  const GeneralSettingsScreen({super.key});
+final GeneralSettingsController generalSettingsController=Get.put(GeneralSettingsController());
+   GeneralSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var controllerData=generalSettingsController.vendorModel;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -21,7 +34,8 @@ class GeneralSettingsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(()=>EditProfileScreen());
+         Get.to(()=>EditProfileScreen());
+           
             },
             icon: Icon(
               Icons.edit,
@@ -30,7 +44,10 @@ class GeneralSettingsScreen extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () async{
+              await Get.find<AuthController>().signOutMethod(context);
+              Get.offAll(()=>LoginScreen());
+            },
             icon: Icon(
               Icons.logout,
               size: 25.h,
@@ -44,20 +61,24 @@ class GeneralSettingsScreen extends StatelessWidget {
         color: purpleColor,
         child: Column(
           children: [
-            ListTile(
-              leading: CircleAvatar(
-                radius: 40.r,
-                backgroundImage: const AssetImage(imgProduct),
-              ),
-              title: Text(
-                "Vendor Name",
-                style: TextStyle(
-                    color: white, fontSize: 20.sp, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                "vendormail@snapkart.com",
-                style: TextStyle(color: white, fontSize: 14.sp),
-              ),
+            GetBuilder<GeneralSettingsController>(
+              builder: (context) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    radius: 40.r,
+                    backgroundImage: controllerData.imageUrl.isNotEmpty? NetworkImage(controllerData.imageUrl):const AssetImage("assets/user.png") as ImageProvider<Object>,
+                  ),
+                  title: Text(
+                  controllerData .vendorName,
+                    style: TextStyle(
+                        color: white, fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    controllerData.email,
+                    style: TextStyle(color: white, fontSize: 14.sp),
+                  ),
+                );
+              }
             ),
             SizedBox(
               height: 10.h,

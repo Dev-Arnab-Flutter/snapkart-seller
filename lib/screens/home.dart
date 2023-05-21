@@ -13,10 +13,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeController controller =Get.put(HomeController());
-    var navScreen= const[
-      DashboardScreen(),
-      ProductsScreen(),
-      OrdersScreen(),
+    var navScreen= [
+    const  DashboardScreen(),
+     const ProductsScreen(),
+    const  OrdersScreen(),
       GeneralSettingsScreen(),
     ];
     var bottomNavBar = [

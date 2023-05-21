@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
 import 'package:seller/const/const.dart';
+import 'package:seller/controllers/auth_controller.dart';
 import 'package:seller/screens/home.dart';
 import 'package:seller/widgets/custom_button_widget.dart';
 import 'package:seller/widgets/custom_textfield_widget.dart';
+import 'package:seller/widgets/loding_indicator.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class LoginScreen extends StatelessWidget {
+ final AuthController authController= Get.put(AuthController());
+   LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,21 +73,35 @@ class HomeScreen extends StatelessWidget {
                     ),
                 child: Column(
                   children: [
-                    const CustomTextField(
+                     CustomTextField(
+                      controller: authController.emailController,
                         hintText: emailHint, icons: Icons.email),
                     SizedBox(
                       height: 10.h,
                     ),
-                    const CustomTextField(
+                     CustomTextField(
+                    controller: authController.passController,
                         hintText: passHint, icons: Icons.password),
                     SizedBox(
                       height: 30.h,
                     ),
-                    CustomButton(
-                      onTap: () {
-                        Get.to(()=>const Home());
-                      },
-                      label: login,
+                Obx(
+                      ()=>authController.isLoading.value? loadingIndicator(): CustomButton(
+                        onTap: () async{
+                          // Get.to(()=>const Home());
+                          authController.isLoading(true);
+                          await authController.loginMethod(context: context).then((value) {
+                            if(value != null){
+                              authController.isLoading(false);
+                              Get.offAll(()=>const Home());
+                            }else{
+                              authController.isLoading(false);
+
+                            }
+                          });
+                        },
+                        label: login,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
