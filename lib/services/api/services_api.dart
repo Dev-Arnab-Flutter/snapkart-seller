@@ -65,4 +65,6 @@ userImageController.selectedProfilePicture=false;
     Get.snackbar("Error occured", message,
         backgroundColor: Colors.redAccent, snackPosition: SnackPosition.BOTTOM,duration:const Duration(seconds: 5));
   }
+
+  
 }

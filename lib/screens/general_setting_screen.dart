@@ -5,6 +5,7 @@ import 'package:seller/const/const.dart';
 import 'package:seller/controllers/auth_controller.dart';
 import 'package:seller/controllers/general_settings_controller.dart';
 
+
 import 'package:seller/screens/edit_profile_screen.dart';
 
 
@@ -18,6 +19,7 @@ import 'package:seller/screens/shop_setting_screen.dart';
 
 class GeneralSettingsScreen extends StatelessWidget {
 final GeneralSettingsController generalSettingsController=Get.put(GeneralSettingsController());
+
    GeneralSettingsScreen({super.key});
 
   @override
@@ -91,7 +93,7 @@ final GeneralSettingsController generalSettingsController=Get.put(GeneralSetting
                     onTap: () {
                       switch (index){
                         case 0:
-                        Get.to(()=>const ShopSettingsScreen());
+                        Get.to(()=>ShopSettingsScreen());
                         case 1:
                         Get.to(()=> const MessagesScreen());
                         break;
@@ -107,7 +109,8 @@ final GeneralSettingsController generalSettingsController=Get.put(GeneralSetting
                       style: TextStyle(color: white, fontSize: 16.sp),
                     ),
                   );
-                })
+                }),
+           
           ],
         ),
       ),

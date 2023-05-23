@@ -1,13 +1,18 @@
+import 'package:get/get.dart';
+import 'package:seller/controllers/shop_controller.dart';
 import 'package:seller/widgets/custon_textfield_widget.dart';
+import 'package:seller/widgets/loding_indicator.dart';
 
 import '../const/const.dart';
 
 class ShopSettingsScreen extends StatelessWidget {
-  const ShopSettingsScreen({super.key});
+  final ShopController shopController = Get.put(ShopController());
+  ShopSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: purpleColor,
       appBar: AppBar(
         backgroundColor: purpleColor,
@@ -23,49 +28,87 @@ class ShopSettingsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextFormField(hintText: shopNameHint, label: shopName),
+            CustomTextFormField(
+              hintText: shopNameHint,
+              label: shopName,
+              controller: shopController.shopNameTEC,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextFormField(
+            CustomTextFormField(
               hintText: shopDescHint,
               label: desc,
               isDesc: true,
+              controller: shopController.shopDescTEC,
             ),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextFormField(hintText: address, label: addressHint),
+            CustomTextFormField(
+              hintText: address,
+              label: addressHint,
+              controller: shopController.shopAddressTEC,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextFormField(hintText: mobileHint, label: mobile),
+            CustomTextFormField(
+              hintText: mobileHint,
+              label: mobile,
+              keyboardType: TextInputType.number,
+              maxLength: 10,
+              controller: shopController.shopMobileNoTEC,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            const CustomTextFormField(hintText: shopWebsiteHint, label: webSite),
+            CustomTextFormField(
+              hintText: shopWebsiteHint,
+              label: webSite,
+              controller: shopController.shopWebsiteTEC,
+            ),
             SizedBox(
               height: 10.h,
             ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: white),
-                onPressed: () {},
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.save,
-                      color: purpleColor,
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text(
-                      "Save",
-                      style: TextStyle(color: purpleColor, fontSize: 16.sp),
-                    )
-                  ],
-                ))
+            Obx(()=>shopController.isLoading.value?loadingIndicator(color: white):
+               ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: white),
+                  onPressed: () {
+                    if (shopController.shopNameTEC.text.isNotEmpty &&
+                        shopController.shopDescTEC.text.isNotEmpty &&
+                        shopController.shopAddressTEC.text.isNotEmpty &&
+                        shopController.shopMobileNoTEC.text.isNotEmpty &&
+                        shopController.shopWebsiteTEC.text.isNotEmpty) {
+                          shopController.shopUpdate(
+                            shopname: shopController.shopNameTEC.text,
+                            shopdesc: shopController.shopDescTEC.text,
+                            shopAddress: shopController.shopAddressTEC.text,
+                            shopMobile: shopController.shopMobileNoTEC.text,
+                            shopWebsite: shopController.shopWebsiteTEC.text,
+                          );
+                          Get.back();
+                        }else{
+                          shopController.showSnackBar();
+                        }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.save,
+                        color: purpleColor,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(
+                        "Save",
+                        style: TextStyle(color: purpleColor, fontSize: 16.sp),
+                      )
+                    ],
+                  )),
+            )
           ],
         ),
       ),

@@ -85,7 +85,7 @@ class ProductsScreen extends StatelessWidget {
         backgroundColor: purpleColor,
         shape: const CircleBorder(),
         onPressed: () {
-          Get.to(()=>const AddProductScreen());
+          Get.to(()=> AddProductScreen());
         },
         child: Icon(
           Icons.add,

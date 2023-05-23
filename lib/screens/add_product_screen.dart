@@ -1,13 +1,16 @@
 import 'dart:math';
 
+import 'package:get/get.dart';
 import 'package:seller/const/const.dart';
+import 'package:seller/controllers/category_controller.dart';
 
 import 'package:seller/widgets/custon_textfield_widget.dart';
 import 'package:seller/widgets/product_dropdown.dart';
 import 'package:seller/widgets/product_images_widget.dart';
 
 class AddProductScreen extends StatelessWidget {
-  const AddProductScreen({super.key});
+  final CategoryController categoryController=Get.put(CategoryController());
+ AddProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,9 @@ class AddProductScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              categoryController.getCategory();
+            },
             icon: Icon(
               Icons.save,
               size: 25.h,
@@ -57,6 +62,7 @@ class AddProductScreen extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
+
               productDropDown(hint: "Choose Category"),
               SizedBox(
                 height: 10.h,
